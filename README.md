@@ -7,7 +7,46 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Laravel com multi-tenant
+
+- https://tenancyforlaravel.com/
+- 
+
+## For developter using laragon
+
+- Confifgure subdomains
+
+edited drivers\etc\hosts and added my subdomain
+Enable mod_vhost_alias.so in laragon\bin\apache[version]\conf\httpd.conf
+Create a new file like {laragon folder}\etc\apache2\sites-enabled\sub.project.test.conf"
+
+define ROOT "C:/laragon/htdocs/project/sub/"
+define SITE "sub.project.test"
+
+<VirtualHost *:80> 
+    DocumentRoot ${ROOT}
+    ServerName ${SITE}
+    ServerAlias *.${SITE}
+    <Directory "${ROOT}">
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+
+<VirtualHost *:443>
+    DocumentRoot "${ROOT}"
+    ServerName ${SITE}
+    ServerAlias *.${SITE}
+    <Directory "${ROOT}">
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    SSLEngine on
+    SSLCertificateFile      C:/laragon/etc/ssl/laragon.crt
+    SSLCertificateKeyFile   C:/laragon/etc/ssl/laragon.key
+ 
+</VirtualHost>
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
